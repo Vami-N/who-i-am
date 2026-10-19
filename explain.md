@@ -39,9 +39,21 @@ pnpm install
 pnpm dev            # http://localhost:5173
 pnpm build          # vérifie les types (tsc) puis construit dans dist/
 pnpm preview        # sert le build de production sur http://localhost:4173
+pnpm test           # lance les tests des utilitaires
 ```
 
 `packageManager` fixe pnpm 10 : si ton pnpm est plus récent, il bascule tout seul sur la bonne version. Node 22 recommandé.
+
+### Lancer avec Docker
+
+Depuis la racine du dépôt, dans PowerShell :
+
+```powershell
+$env:VITE_SITE_URL = 'https://ton-domaine.com' # optionnel en local, nécessaire pour les métadonnées d’un site public
+docker compose -f deployement\docker-compose.yaml up --build -d
+```
+
+Le site sera disponible sur `http://localhost:8080`. `VITE_SITE_URL` est injectée pendant le build de l’image ; la définir seulement au démarrage du conteneur ne mettrait pas à jour les métadonnées SEO.
 
 ---
 
@@ -60,6 +72,8 @@ git push -u origin main
 
 Puis sur [vercel.com/new](https://vercel.com/new) → **Import** du dépôt → **Deploy**.
 Vercel détecte Vite et pnpm tout seul (script `build` du `package.json`, dossier de sortie `dist/`, lockfile `pnpm-lock.yaml`). **N’ajoute pas d’« Install Command » personnalisée** : Vercel utiliserait alors un très vieux pnpm incapable de lire le lockfile.
+
+Le workflow GitHub Actions vérifie les types, lance les tests et déploie sur Vercel après un push sur `main`. Pour l’activer, ajoute `VERCEL_TOKEN`, `VERCEL_ORG_ID` et `VERCEL_PROJECT_ID` dans *GitHub → Settings → Secrets and variables → Actions*. Désactive les déploiements Git automatiques du projet Vercel pour éviter un deuxième déploiement à chaque push. Configure aussi `VITE_SITE_URL` dans les variables d’environnement de production du projet Vercel.
 
 ### Option B — Vercel CLI
 

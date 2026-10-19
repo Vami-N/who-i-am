@@ -8,6 +8,8 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
 COPY . .
+ARG VITE_SITE_URL=http://localhost:8080
+ENV VITE_SITE_URL=$VITE_SITE_URL
 RUN pnpm build
 
 # Étape 2 : Image de production Nginx (Ultra-léger ~20Mo)
@@ -17,7 +19,7 @@ RUN rm -rf /usr/share/nginx/html/*
 
 # Copie des fichiers dist et de la configuration Nginx propre
 COPY --from=builder /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY deployement/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
