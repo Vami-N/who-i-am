@@ -79,6 +79,6 @@ function siteMeta(): Plugin {
 
 export default defineConfig({
   plugins: [react(), siteMeta()],
-  server: { host: true, allowedHosts: true },
-  preview: { host: true, allowedHosts: true },
+  server: { host: true },
+  preview: { host: true },
 });
