@@ -73,7 +73,7 @@ git push -u origin main
 Puis sur [vercel.com/new](https://vercel.com/new) → **Import** du dépôt → **Deploy**.
 Vercel détecte Vite et pnpm tout seul (script `build` du `package.json`, dossier de sortie `dist/`, lockfile `pnpm-lock.yaml`). **N’ajoute pas d’« Install Command » personnalisée** : Vercel utiliserait alors un très vieux pnpm incapable de lire le lockfile.
 
-Le workflow GitHub Actions vérifie les types, lance les tests et déploie sur Vercel après un push sur `main`. Pour l’activer, ajoute `VERCEL_TOKEN`, `VERCEL_ORG_ID` et `VERCEL_PROJECT_ID` dans *GitHub → Settings → Secrets and variables → Actions*. Désactive les déploiements Git automatiques du projet Vercel pour éviter un deuxième déploiement à chaque push. Configure aussi `VITE_SITE_URL` dans les variables d’environnement de production du projet Vercel.
+Le workflow GitHub Actions lance les tests et le build sur les pull requests vers `main` ou `develop`, ainsi que sur les pushes vers `main`. Le déploiement du site reste géré par l’intégration Git de Vercel après import du dépôt. Configure `VITE_SITE_URL` dans les variables d’environnement de production de Vercel pour que les métadonnées SEO utilisent le domaine public.
 
 ### Option B — Vercel CLI
 
