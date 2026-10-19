@@ -73,7 +73,6 @@ export const ui = {
     },
     scenarios: { fr: 'Scénarios', en: 'Scenarios' },
     stepsLabel: { fr: 'Étapes du scénario', en: 'Scenario steps' },
-    step: { fr: 'étape', en: 'step' },
     boundary: { fr: 'docker compose', en: 'docker compose' },
   },
 
