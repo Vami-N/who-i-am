@@ -12,7 +12,7 @@ Portfolio bilingue (FR / EN) d’ingénieur logiciel full-stack, construit avec 
 
 ---
 
-## ✅ À faire avant de déployer (≈ 3 min)
+## À faire avant de déployer (≈ 3 min)
 
 1. **`src/data/profile.ts`** — renseigne tes contacts (un champ vide = bouton masqué) :
    ```ts
