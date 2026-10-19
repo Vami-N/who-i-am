@@ -1,0 +1,374 @@
+/* ---------- Boutons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.3rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    transform 0.25s var(--ease),
+    background-color 0.25s,
+    border-color 0.25s,
+    box-shadow 0.25s,
+    color 0.25s;
+}
+
+.btn svg {
+  transition: transform 0.25s var(--ease);
+}
+
+.btn:hover svg {
+  transform: translateX(3px);
+}
+
+.btn--lg {
+  padding: 1rem 1.55rem;
+  font-size: 1rem;
+}
+
+.btn--sm {
+  padding: 0.6rem 1.05rem;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 480px) {
+  .btn--lg {
+    padding: 0.9rem 1.2rem;
+    font-size: 0.95rem;
+  }
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px -14px color-mix(in oklab, var(--flag-yellow) 85%, transparent);
+}
+
+.btn--ghost {
+  border-color: var(--line-strong);
+  background: color-mix(in oklab, var(--bg-elev) 60%, transparent);
+}
+
+.btn--ghost:hover {
+  border-color: var(--text-faint);
+  background: var(--bg-elev-2);
+  transform: translateY(-2px);
+}
+
+.btn--text {
+  color: var(--text-dim);
+  padding-inline: 0.5rem;
+}
+
+.btn--text:hover {
+  color: var(--text);
+}
+
+.btn--text:hover svg {
+  transform: translateY(2px);
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  color: var(--text-dim);
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    background-color 0.2s;
+}
+
+.icon-btn:hover {
+  color: var(--text);
+  border-color: var(--text-faint);
+  background: var(--bg-elev);
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--link);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.link-arrow:hover svg {
+  transform: translate(2px, -2px);
+}
+
+.link-arrow svg {
+  transition: transform 0.2s var(--ease);
+}
+
+/* ---------- Pastilles & étiquettes ---------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.42rem 0.85rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  background: color-mix(in oklab, var(--bg-elev) 70%, transparent);
+}
+
+.pill svg {
+  color: var(--text-faint);
+}
+
+.pill__dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green-t);
+}
+
+.pill__dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--green-t);
+  animation: ping 2.4s var(--ease) infinite;
+}
+
+.pill__sep {
+  width: 1px;
+  height: 12px;
+  background: var(--line-strong);
+}
+
+.pill__time {
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes ping {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.subhead {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.subhead::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.subhead--spaced {
+  margin-top: clamp(3rem, 7vw, 5.5rem);
+}
+
+/* ---------- Puces techniques ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.32rem 0.62rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-dim);
+  background: color-mix(in oklab, var(--bg-elev) 70%, transparent);
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    transform 0.2s var(--ease);
+}
+
+.chip:hover {
+  color: var(--text);
+  border-color: var(--text-faint);
+  transform: translateY(-1px);
+}
+
+.chip--core {
+  color: var(--text);
+  border-color: color-mix(in oklab, var(--flag-yellow) 55%, var(--line-strong));
+  background: color-mix(in oklab, var(--flag-yellow) 9%, var(--bg-elev));
+}
+
+.chip__star {
+  color: var(--flag-yellow);
+  flex: none;
+}
+
+.chip--explore {
+  border-style: dashed;
+}
+
+.chip--quiet {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--text-faint);
+}
+
+/* ---------- Cartes ---------- */
+.card {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(1.4rem, 3vw, 2.25rem);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--bg-elev-2), var(--bg-elev) 55%);
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+/* halo qui suit le curseur */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 0%),
+    color-mix(in oklab, var(--flag-yellow) 11%, transparent),
+    transparent 62%
+  );
+  opacity: 0;
+  transition: opacity 0.35s;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .card:hover {
+    border-color: color-mix(in oklab, var(--flag-yellow) 35%, var(--line-strong));
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Repères d'angle façon plan technique */
+.corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 0 solid var(--text-faint);
+  opacity: 0.85;
+}
+
+.corner--tl {
+  top: 10px;
+  left: 10px;
+  border-top-width: 1.5px;
+  border-left-width: 1.5px;
+}
+
+.corner--tr {
+  top: 10px;
+  right: 10px;
+  border-top-width: 1.5px;
+  border-right-width: 1.5px;
+}
+
+.corner--bl {
+  bottom: 10px;
+  left: 10px;
+  border-bottom-width: 1.5px;
+  border-left-width: 1.5px;
+}
+
+.corner--br {
+  bottom: 10px;
+  right: 10px;
+  border-bottom-width: 1.5px;
+  border-right-width: 1.5px;
+}
+
+/* ---------- Statut de projet ---------- */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--text-dim);
+}
+
+.status__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-faint);
+}
+
+.status--active .status__dot {
+  background: var(--green-t);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--green-t) 24%, transparent);
+}
+
+.status--building .status__dot {
+  background: var(--flag-yellow);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--flag-yellow) 24%, transparent);
+}
+
+.status--done .status__dot {
+  background: var(--blue);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--blue) 24%, transparent);
+}

@@ -1,0 +1,57 @@
+:root {
+  --font-display: 'Bricolage Grotesque', 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Instrument Sans', 'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', 'SF Mono', Consolas, monospace;
+
+  /* Palette : les trois couleurs du drapeau camerounais, utilisées avec retenue. */
+  --flag-green: #1fb67f;
+  --flag-red: #e5283b;
+  --flag-yellow: #fcd116;
+
+  --max: 1200px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --header-h: 68px;
+  --section-pad: clamp(4.5rem, 10vw, 8.5rem);
+  --radius: 18px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #080c0a;
+  --bg-elev: #0e1511;
+  --bg-elev-2: #131c17;
+  --line: rgba(234, 241, 237, 0.08);
+  --line-strong: rgba(234, 241, 237, 0.17);
+  --text: #eaf1ed;
+  --text-dim: #a6b5ad;
+  --text-faint: #7a8b82;
+  --accent: #fcd116;
+  --accent-ink: #171300;
+  --link: #fcd116;
+  --green-t: #3fd99a;
+  --blue: #7db0ff;
+  --grid-dot: rgba(234, 241, 237, 0.075);
+  --shadow: 0 30px 70px -36px rgba(0, 0, 0, 0.85);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f4f1e8;
+  --bg-elev: #fbf9f3;
+  --bg-elev-2: #ffffff;
+  --line: rgba(21, 33, 27, 0.1);
+  --line-strong: rgba(21, 33, 27, 0.2);
+  --text: #15211b;
+  --text-dim: #425249;
+  --text-faint: #5b6a62;
+  --accent: #fcd116;
+  --accent-ink: #171300;
+  --link: #0b6b4d;
+  --green-t: #0b7a57;
+  --blue: #1f5fc7;
+  --grid-dot: rgba(21, 33, 27, 0.1);
+  --shadow: 0 30px 60px -36px rgba(21, 33, 27, 0.4);
+}

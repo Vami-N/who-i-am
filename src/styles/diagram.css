@@ -1,0 +1,285 @@
+.diagram {
+  position: relative;
+  padding: 1.1rem 1.1rem 0.9rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 24px;
+  background: linear-gradient(180deg, var(--bg-elev-2), var(--bg-elev) 70%);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* grille de points interne, façon papier millimétré */
+.diagram::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1.4px);
+  background-size: 18px 18px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 45%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse at 50% 45%, #000 35%, transparent 100%);
+}
+
+.diagram__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.diagram__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--link);
+}
+
+.diagram__note {
+  margin-top: 0.2rem;
+  font-size: 0.78rem;
+  color: var(--text-faint);
+}
+
+.tabs {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--bg);
+}
+
+.tabs__tab {
+  padding: 0.36rem 0.75rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.tabs__tab:hover {
+  color: var(--text);
+}
+
+.tabs__tab[aria-selected='true'] {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.diagram__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* ----- SVG ----- */
+.boundary rect {
+  fill: color-mix(in oklab, var(--bg) 35%, transparent);
+  stroke: var(--line-strong);
+  stroke-width: 1.2;
+  stroke-dasharray: 5 6;
+}
+
+.boundary text {
+  font: 500 10.5px var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  fill: var(--text-faint);
+}
+
+.edge {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  transition:
+    stroke 0.3s,
+    stroke-width 0.3s;
+}
+
+.edge--dashed {
+  stroke-dasharray: 4 4;
+}
+
+.edge.is-scenario {
+  stroke: color-mix(in oklab, var(--text-dim) 75%, transparent);
+}
+
+.edge--lit {
+  stroke: color-mix(in oklab, var(--accent) 60%, transparent);
+}
+
+.edge--hot {
+  stroke: var(--accent);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 4px color-mix(in oklab, var(--accent) 65%, transparent));
+}
+
+.arrow--dim {
+  fill: var(--text-faint);
+}
+
+.arrow--lit {
+  fill: color-mix(in oklab, var(--accent) 75%, var(--text-faint));
+}
+
+.arrow--hot {
+  fill: var(--accent);
+}
+
+.node {
+  --kind: var(--text-dim);
+  outline: none;
+  cursor: default;
+}
+
+.node--edge,
+.node--gateway {
+  --kind: var(--flag-yellow);
+}
+
+.node--service {
+  --kind: var(--flag-green);
+}
+
+.node--bus {
+  --kind: var(--flag-red);
+}
+
+.node--data {
+  --kind: var(--blue);
+}
+
+.node__box {
+  fill: var(--bg-elev-2);
+  stroke: var(--line-strong);
+  stroke-width: 1.2;
+  transition:
+    stroke 0.25s,
+    fill 0.25s,
+    filter 0.25s;
+}
+
+.node__tick {
+  fill: var(--kind);
+  opacity: 0.95;
+}
+
+.node__title {
+  font: 600 13.5px var(--font-mono);
+  fill: var(--text);
+}
+
+.node__sub {
+  font: 500 10px var(--font-mono);
+  letter-spacing: 0.02em;
+  fill: var(--text-faint);
+}
+
+.node.is-scenario .node__box {
+  stroke: color-mix(in oklab, var(--kind) 45%, var(--line-strong));
+}
+
+.node.is-hot .node__box {
+  stroke: var(--kind);
+  fill: color-mix(in oklab, var(--kind) 14%, var(--bg-elev-2));
+  filter: drop-shadow(0 0 8px color-mix(in oklab, var(--kind) 55%, transparent));
+}
+
+.node.is-hover .node__box,
+.node:focus-visible .node__box {
+  stroke: var(--kind);
+  stroke-width: 1.8;
+}
+
+.packet {
+  pointer-events: none;
+}
+
+.packet__core {
+  fill: var(--accent);
+}
+
+.packet__glow {
+  fill: var(--accent);
+  opacity: 0.22;
+}
+
+.packet[data-dir='back'] .packet__core,
+.packet[data-dir='back'] .packet__glow {
+  fill: var(--green-t);
+}
+
+/* ----- Légende dynamique ----- */
+.diagram__caption {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  min-height: 5.6rem;
+  margin-top: 0.4rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: color-mix(in oklab, var(--bg) 70%, transparent);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.diagram__tag {
+  flex: none;
+  margin-top: 0.1rem;
+  padding: 0.22rem 0.55rem;
+  border-radius: 6px;
+  background: var(--line);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--text-dim);
+}
+
+.diagram__caption--node .diagram__tag {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.diagram__caption--step .diagram__tag {
+  font-variant-numeric: tabular-nums;
+}
+
+.diagram__hint {
+  margin: 0.65rem 0.25rem 0;
+  font-size: 0.75rem;
+  color: var(--text-faint);
+}
+
+.diagram__hint-touch {
+  display: none;
+}
+
+@media (hover: none) {
+  .diagram__hint-hover {
+    display: none;
+  }
+
+  .diagram__hint-touch {
+    display: inline;
+  }
+}
+
+@media (max-width: 420px) {
+  .diagram {
+    padding: 0.9rem 0.75rem 0.75rem;
+    border-radius: 20px;
+  }
+}
