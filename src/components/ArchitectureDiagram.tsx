@@ -205,7 +205,6 @@ export function ArchitectureDiagram() {
           viewBox={`0 0 ${VIEW.w} ${VIEW.h}`}
           role="img"
           aria-label={t(ui.diagram.label)}
-          onClick={() => setHovered(null)}
         >
           <defs>
             {(['dim', 'lit', 'hot'] as const).map((tone) => (
@@ -270,13 +269,16 @@ export function ArchitectureDiagram() {
                   className={classes}
                   transform={`translate(${node.x} ${node.y})`}
                   tabIndex={0}
-                  role="group"
+                  role="button"
                   aria-label={`${node.title} — ${t(node.desc)}`}
                   onPointerEnter={(event) => event.pointerType === 'mouse' && setHovered(node.id)}
                   onPointerLeave={(event) => event.pointerType === 'mouse' && setHovered(null)}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    setHovered(node.id);
+                  onClick={() => setHovered(node.id)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      setHovered(node.id);
+                    }
                   }}
                   onFocus={() => setHovered(node.id)}
                   onBlur={() => setHovered(null)}

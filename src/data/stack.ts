@@ -72,6 +72,6 @@ export const layers: StackLayer[] = [
   {
     id: 'tooling',
     name: { fr: 'Outils & création', en: 'Tooling & craft' },
-    items: [r('VS Code'), r('Cursor'), r('Windsurf'), r('Trae AI'), r('OpenCode'), x('LM Studio'), r('Affinity')],
+    items: [r('VS Code'), r('Claude Code'), r('OpenCode'), x('LM Studio'), r('Affinity')],
   },
 ];

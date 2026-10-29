@@ -16,7 +16,7 @@ const portraits = import.meta.glob<string>('../assets/portrait.{jpg,jpeg,png,web
 });
 const portraitUrl: string | undefined = Object.values(portraits)[0];
 
-const AI_TOOLS = ['Cursor', 'Windsurf', 'Trae AI', 'OpenCode'];
+const AI_TOOLS = ['Claude Code', 'OpenCode'];
 
 function Portrait() {
   const { t } = useI18n();

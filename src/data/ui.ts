@@ -1,4 +1,4 @@
-import type { L } from './i18n';
+import type { L } from './i18n.ts';
 
 /**
  * Textes de l’interface (FR / EN).
@@ -122,16 +122,16 @@ export const ui = {
       },
     ],
     ai: {
-      eyebrow: { fr: 'Méthode de travail', en: 'Working method' },
-      title: { fr: 'L’IA, *sous contrôle*.', en: 'AI, *kept on a leash*.' },
+      eyebrow: { fr: 'MÉTHODE DE TRAVAIL', en: 'WORKING METHOD' },
+      title: { fr: 'L’IA m’assiste, *je décide.*', en: 'AI assists, *I decide.*' },
       text: {
-        fr: 'J’utilise Cursor, Windsurf, Trae AI et OpenCode avec des règles personnalisées\u00a0: avant chaque modification, l’assistant doit analyser l’architecture globale du système. L’objectif\u00a0: aller plus vite sans introduire de régressions.',
-        en: 'I use Cursor, Windsurf, Trae AI and OpenCode with custom rules: before every change, the assistant has to analyze the system’s overall architecture. The goal: move faster without introducing regressions.',
+        fr: 'J’utilise Claude Code et OpenCode comme assistants de développement. Je conçois l’architecture et je fixe les règles du projet. Puis je relis, teste et valide chaque modification avant de la livrer. L’IA accélère l’exécution, mais les choix techniques et la responsabilité du code restent les miens.',
+        en: 'I use Claude Code and OpenCode as development assistants. I design the architecture and set the project rules. Then I review, test and validate every change before it ships. AI speeds up execution, but the technical decisions and ownership of the code stay with me.',
       },
       steps: [
-        { fr: 'Règles personnalisées', en: 'Custom rules' },
-        { fr: 'Analyse de l’architecture globale', en: 'Whole-system architecture analysis' },
-        { fr: 'Modification, sans régression', en: 'Change, with no regressions' },
+        { fr: 'Je définis l’architecture et les règles', en: 'I define the architecture and rules' },
+        { fr: 'L’assistant propose, je pilote', en: 'The assistant proposes, I steer' },
+        { fr: 'Je relis, teste et valide', en: 'I review, test and validate' },
       ],
     },
     sheet: {
@@ -236,6 +236,7 @@ export const ui = {
     linkedin: { fr: 'LinkedIn', en: 'LinkedIn' },
     copy: { fr: 'Copier l’adresse', en: 'Copy address' },
     copied: { fr: 'Copié\u202f!', en: 'Copied!' },
+    copyFailed: { fr: 'Copie impossible. Sélectionne l’adresse dans le lien e-mail.', en: 'Could not copy. Select the address from the email link.' },
     emailSubject: { fr: 'Projet — prise de contact', en: 'Project inquiry' },
     emailBody: {
       fr: 'Bonjour Yvo,\n\nJe vous écris à propos d’un projet…',

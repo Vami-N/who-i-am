@@ -7,7 +7,7 @@ Portfolio bilingue (FR / EN) d’ingénieur logiciel full-stack, construit avec 
 - Mode sombre / clair (suit le système, mémorisé), français / anglais (`?lang=en`, mémorisé)
 - Horloge locale de Yaoundé (utile pour caler une réunion avec un client à l’étranger)
 - SEO : balises Open Graph, image de partage, JSON-LD `Person`, sitemap, robots.txt
-- Accessible (axe-core : 0 violation en sombre/clair, FR/EN, bureau/mobile), clavier, `prefers-reduced-motion`
+- Navigation au clavier et prise en compte de `prefers-reduced-motion` ; aucune analyse axe-core automatisée n’est configurée dans ce dépôt
 - Aucune dépendance runtime hors React · polices auto-hébergées · ~91 Ko de JS gzippé
 
 ---
@@ -23,10 +23,10 @@ Portfolio bilingue (FR / EN) d’ingénieur logiciel full-stack, construit avec 
      linkedin: 'https://www.linkedin.com/in/ton-profil',
    },
    availableForWork: true,   // false = masque la pastille « Ouvert aux missions »
-   cvUrl: '/cv-yvo-neguem.pdf', // optionnel : dépose le PDF dans /public
    ```
    > Tant que `contact` est vide, la section Contact affiche « Les coordonnées arrivent très bientôt ».
-2. **Ta photo (optionnel)** — dépose `src/assets/portrait.jpg` (ou `.png`, `.webp`, `.avif`) : elle remplace automatiquement le monogramme du « Y » dans la section Profil. Aucun code à toucher.
+   Les CV sont servis depuis `public/CV_Vami_FR.pdf` et `public/CV_Vami_EN.pdf` selon la langue sélectionnée. Ces fichiers doivent être ajoutés à Git pour être inclus au déploiement.
+2. **Ta photo (optionnel)** — le fichier `src/assets/portrait.jpeg` remplace automatiquement le monogramme dans la section Profil. Ajoute-le à Git pour qu’il apparaisse aussi en production.
 3. **Relis les textes** dans `src/data/` — voir « Points à valider » plus bas.
 
 ---
@@ -38,8 +38,10 @@ cd yvo-portfolio
 pnpm install
 pnpm dev            # http://localhost:5173
 pnpm build          # vérifie les types (tsc) puis construit dans dist/
+pnpm lint           # vérifie le code avec Oxlint et ses règles React / accessibilité JSX
 pnpm preview        # sert le build de production sur http://localhost:4173
 pnpm test           # lance les tests des utilitaires
+pnpm test:build     # vérifie les pages SEO et les PDF après pnpm build
 ```
 
 `packageManager` fixe pnpm 10 : si ton pnpm est plus récent, il bascule tout seul sur la bonne version. Node 22 recommandé.
@@ -112,9 +114,9 @@ Ajoute `links: { demo: 'https://…', repo: 'https://…' }` à un projet pour a
 `public/og.png` (1200×630), `favicon-32.png`, `apple-touch-icon.png`, `icon-192/512.png` sont générés par
 `scripts/generate-brand.mjs` à partir du schéma et du logo (nécessite Playwright, ponctuel — voir l’en-tête du script).
 
-## Qualité mesurée (build de production)
+## Vérifications qualité
 
-Lighthouse — performance **96–98** (mobile simulé, 4G lente) / **100** (bureau), accessibilité **100**, bonnes pratiques **100**, SEO **100**, CLS 0.
+La CI exécute Oxlint, le build TypeScript/Vite, les tests unitaires et la vérification des pages et fichiers de production. Les scores Lighthouse doivent être mesurés sur le déploiement à évaluer ; ils ne sont pas générés par ce dépôt.
 
 ---
 

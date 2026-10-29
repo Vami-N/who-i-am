@@ -11,6 +11,7 @@ import { Rich } from './Rich';
 function CopyButton({ value }: { value: string }) {
   const { t } = useI18n();
   const [done, setDone] = useState(false);
+  const [failed, setFailed] = useState(false);
   const timer = useRef<number | undefined>(undefined);
 
   useEffect(() => () => window.clearTimeout(timer.current), []);
@@ -19,17 +20,19 @@ function CopyButton({ value }: { value: string }) {
     try {
       await navigator.clipboard.writeText(value);
       setDone(true);
+      setFailed(false);
       window.clearTimeout(timer.current);
       timer.current = window.setTimeout(() => setDone(false), 2000);
     } catch {
-      /* presse-papiers indisponible : le lien mailto reste utilisable */
+      setDone(false);
+      setFailed(true);
     }
   };
 
   return (
     <button type="button" className="btn btn--ghost btn--lg" onClick={copy}>
       {done ? <Check /> : <Copy />}
-      <span aria-live="polite">{done ? t(ui.contact.copied) : t(ui.contact.copy)}</span>
+      <span aria-live="polite">{done ? t(ui.contact.copied) : failed ? t(ui.contact.copyFailed) : t(ui.contact.copy)}</span>
     </button>
   );
 }

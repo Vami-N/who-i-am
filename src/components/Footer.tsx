@@ -4,9 +4,10 @@ import { useI18n } from '../lib/i18n';
 import { ArrowUp } from './Icons';
 import { LogoMark } from './Logo';
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 export function Footer() {
   const { t } = useI18n();
-  const year = new Date().getFullYear();
 
   return (
     <footer className="footer">
@@ -14,7 +15,7 @@ export function Footer() {
         <div className="footer__id">
           <LogoMark size={24} />
           <p>
-            © {year} {profile.name} — {profile.city}
+            © {CURRENT_YEAR} {profile.name} — {profile.city}
           </p>
         </div>
         <p className="footer__built">{t(ui.footer.built)}</p>

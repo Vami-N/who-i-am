@@ -13,6 +13,8 @@
     <meta name="theme-color" content="#080c0a" />
     <meta name="color-scheme" content="dark light" />
     <link rel="canonical" href="__SITE_URL__/" />
+    <link rel="alternate" hreflang="fr" href="__SITE_URL__/" />
+    <link rel="alternate" hreflang="en" href="__SITE_URL__/en/" />
 
     <!-- Icônes -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -62,9 +64,12 @@
 
           var fromUrl = new URLSearchParams(location.search).get('lang');
           var stored = localStorage.getItem('lang');
+          var englishRoute = /\/en\/?$/.test(location.pathname);
           var lang =
             fromUrl === 'fr' || fromUrl === 'en'
               ? fromUrl
+              : englishRoute
+                ? 'en'
               : stored === 'fr' || stored === 'en'
                 ? stored
                 : (navigator.language || 'fr').toLowerCase().indexOf('fr') === 0

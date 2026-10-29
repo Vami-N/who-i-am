@@ -17,8 +17,6 @@ export interface Profile {
     /** URL complète, ex. 'https://www.linkedin.com/in/ton-profil' */
     linkedin: string;
   };
-  /** Chemin d'un CV PDF placé dans /public, ex. '/cv-yvo-neguem.pdf'. Vide = bouton masqué. */
-  cvUrl: string;
 }
 
 export const profile: Profile = {
@@ -34,8 +32,6 @@ export const profile: Profile = {
     email: 'vami.n.sec@gmail.com',
     whatsapp: '+237690138467',
     github: 'https://github.com/Vami-N',
-    linkedin: 'https://www.linkedin.com/in/vami-undefined-3a641a445/',
+    linkedin: 'https://www.linkedin.com/in/vami-undefined-3a641a445',
   },
-
-  cvUrl: '/minerex.pdf',
 };
