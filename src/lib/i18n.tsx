@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { L, Lang } from '../data/i18n';
 import { ui } from '../data/ui';
+import { detectLang as detectLanguage, localizedUrl } from './language';
 
 interface I18nValue {
   lang: Lang;
@@ -11,20 +12,23 @@ interface I18nValue {
 
 const I18nContext = createContext<I18nValue | null>(null);
 
-const isLang = (value: unknown): value is Lang => value === 'fr' || value === 'en';
-
-/** Priorité : ?lang=en → choix mémorisé → langue du navigateur → français. */
+/** Priorité : ?lang=… → route /en/ → choix mémorisé → langue du navigateur → français. */
 function detectLang(): Lang {
   try {
-    const fromUrl = new URLSearchParams(window.location.search).get('lang');
-    if (isLang(fromUrl)) return fromUrl;
-    const stored = window.localStorage.getItem('lang');
-    if (isLang(stored)) return stored;
+    return detectLangFromBrowser();
   } catch {
-    /* stockage indisponible : on continue */
+    return (navigator.languages?.[0] ?? navigator.language ?? 'fr').toLowerCase().startsWith('fr') ? 'fr' : 'en';
   }
-  const browser = (navigator.languages?.[0] ?? navigator.language ?? 'fr').toLowerCase();
-  return browser.startsWith('fr') ? 'fr' : 'en';
+}
+
+function detectLangFromBrowser(): Lang {
+  let stored: string | null = null;
+  try {
+    stored = window.localStorage.getItem('lang');
+  } catch {
+    // The URL and browser language still determine the initial language.
+  }
+  return detectLanguage(new URL(window.location.href), stored, navigator.languages?.[0] ?? navigator.language);
 }
 
 export function I18nProvider({ children }: { children: ReactNode }) {
@@ -40,12 +44,16 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    const url = localizedUrl(new URL(window.location.href), lang);
+    if (url.href !== window.location.href) window.history.replaceState(window.history.state, '', url);
     document.documentElement.lang = lang;
     document.title = ui.meta.title[lang];
     document.querySelector('meta[name="description"]')?.setAttribute('content', ui.meta.description[lang]);
     document.querySelector('meta[property="og:title"]')?.setAttribute('content', ui.meta.title[lang]);
     document.querySelector('meta[property="og:description"]')?.setAttribute('content', ui.meta.description[lang]);
     document.querySelector('meta[property="og:locale"]')?.setAttribute('content', lang === 'fr' ? 'fr_FR' : 'en_US');
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', new URL(lang === 'en' ? '/en/' : '/', window.location.origin).href);
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', new URL(lang === 'en' ? '/en/' : '/', window.location.origin).href);
   }, [lang]);
 
   const value = useMemo<I18nValue>(() => ({ lang, setLang, t: (v) => v[lang] }), [lang, setLang]);

@@ -13,8 +13,9 @@ import { Ticker } from './Ticker';
 const activePlatforms = [...featured, ...infra].filter((p) => p.status === 'active' || p.status === 'building').length;
 
 export function Hero() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const time = useClock(profile.timeZone);
+  const cvUrl = lang === 'en' ? '/CV_Vami_EN.pdf' : '/CV_Vami_FR.pdf';
 
   const stats = [
     { value: '≈\u00a030\u00a0h', label: ui.hero.stats.freelance },
@@ -64,8 +65,8 @@ export function Hero() {
             <a className="btn btn--ghost btn--lg" href="#contact">
               {t(ui.hero.ctaContact)}
             </a>
-            {profile.cvUrl ? (
-              <a className="btn btn--text btn--lg" href={profile.cvUrl} download>
+            {cvUrl ? (
+              <a className="btn btn--text btn--lg" href={cvUrl} download>
                 <Download />
                 {t(ui.hero.ctaCv)}
               </a>

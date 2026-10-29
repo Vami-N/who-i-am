@@ -17,9 +17,14 @@ export function useScrolled(threshold = 12): boolean {
 /** Renvoie l’id de la section actuellement au centre de l’écran. */
 export function useScrollSpy(ids: readonly string[]): string | null {
   const [active, setActive] = useState<string | null>(null);
+  const idKey = ids.join('|');
 
   useEffect(() => {
-    const elements = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => el !== null);
+    const elements = idKey
+      .split('|')
+      .filter(Boolean)
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
     if (elements.length === 0 || !('IntersectionObserver' in window)) return;
 
     const observer = new IntersectionObserver(
@@ -42,7 +47,7 @@ export function useScrollSpy(ids: readonly string[]): string | null {
       observer.disconnect();
       window.removeEventListener('scroll', onScroll);
     };
-  }, [ids.join('|')]);
+  }, [idKey]);
 
   return active;
 }
